@@ -61,8 +61,9 @@ export default function MakeOrders(props: any) {
 
             <ThemeContext.Provider value={value}>
 
-                <CreateOrder data={props.data} sendDataToParent={sendDataToParent} label={'Pastel'} />
-                <CreateOrder data={props.data} sendDataToParent={sendDataToParent} displayClient={false} label={'Salgado'} />
+                <CreateOrder data={props.data[0]} sendDataToParent={sendDataToParent} label={'Pastel'} />
+                <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} displayClient={false} label={'Salgado'} />
+                <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} displayClient={false} label={'Bebida'} />
                 <Table size="small">
                     <TableHead>
                         <TableRow>
