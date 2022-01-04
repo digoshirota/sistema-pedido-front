@@ -23,16 +23,16 @@ function preventDefault(event: React.MouseEvent) {
 
 export interface Ipastel {
     valor: string;
-    nome_pastel: string;
+    nome: string;
 }
 
 
 export default function CreateOrder(props: any) {
-    const [value, setValue] = React.useState<Ipastel>({ valor: '', nome_pastel: '' });
+    const [value, setValue] = React.useState<Ipastel>({ valor: '', nome: '' });
     const [inputValue, setInputValue] = React.useState('');
 
-    const [valueReal, setValueReal] = React.useState({ valor: '', nome_pastel: '' });
-    const [inputValueReal, setInputValueReal] = React.useState({ valor: '', nome_pastel: '' });
+    const [valueReal, setValueReal] = React.useState({ valor: '', nome: '' });
+    const [inputValueReal, setInputValueReal] = React.useState({ valor: '', nome: '' });
 
     const [textQuantity, setQuantity] = useState(1);
     const [textValor, setValor] = useState('');
@@ -58,14 +58,14 @@ export default function CreateOrder(props: any) {
     };
 
     const handleSubmit = (event: any) => {
-        if (value.nome_pastel) {
-            props.sendDataToParent({ name: value.nome_pastel, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: valueReal.valor * textQuantity, tipo: textTipo });
+        if (value.nome) {
+            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: valueReal.valor * textQuantity, tipo: textTipo });
             setQuantity(1);
             setValor('');
             setAdicional('');
             setObs('');
-            setValue({ valor: '', nome_pastel: '' });
-            setValueReal({ valor: '', nome_pastel: '' });
+            setValue({ valor: '', nome: '' });
+            setValueReal({ valor: '', nome: '' });
         }
         event.preventDefault();
     };
@@ -79,7 +79,7 @@ export default function CreateOrder(props: any) {
                         <Stack>
                             <Autocomplete
                                 freeSolo
-                                id="selectPastel"
+                                id={"select" + props.label}
                                 value={value || ''}
                                 onChange={(event, newValue: any) => {
                                     setValue(newValue);
@@ -88,8 +88,8 @@ export default function CreateOrder(props: any) {
                                 }}
                                 disableClearable
                                 options={props.data}
-                                getOptionLabel={(option: any) => option.nome_pastel || ""}
-                                // getOptionLabel={props.data.map((option: any) => option.nome_pastel)}
+                                getOptionLabel={(option: any) => option.nome || ""}
+                                // getOptionLabel={props.data.map((option: any) => option.nome)}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
