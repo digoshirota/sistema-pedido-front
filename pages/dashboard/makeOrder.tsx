@@ -14,6 +14,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
+import Button from '@mui/material/Button';
+import SaveIcon from '@mui/icons-material/Save';
 
 // Generate Order Data
 function createData(
@@ -98,6 +100,11 @@ export default function MakeOrders(props: any) {
                             value={listPedido.reduce(function (acc: any, obj: { valor: any; }) { return acc + obj.valor; }, 0)}
                         />
                     </FormControl>
+                </div>
+                <div className="fechar-pedido">
+                    <Button variant="contained" endIcon={<SaveIcon />}>
+                        Fechar pedido
+                    </Button>
                 </div>
             </ThemeContext.Provider >
             {/* <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
