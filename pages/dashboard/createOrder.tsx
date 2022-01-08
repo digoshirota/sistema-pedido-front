@@ -29,17 +29,14 @@ export interface Ipastel {
 
 export default function CreateOrder(props: any) {
     const [value, setValue] = React.useState<Ipastel>({ valor: '', nome: '' });
-    const [inputValue, setInputValue] = React.useState('');
-
     const [valueReal, setValueReal] = React.useState({ valor: '', nome: '' });
-    const [inputValueReal, setInputValueReal] = React.useState({ valor: '', nome: '' });
-
     const [textQuantity, setQuantity] = useState(1);
     const [textValor, setValor] = useState('');
     const [textAdicional, setAdicional] = useState('');
     const [textObs, setObs] = useState('');
     const [textTipo, setTipo] = useState(props.label);
-    const [sendData, setSendData] = useState({ name: '', quantity: 1, adicional: '', obs: '', valor: '' });
+    const [indexRow, setIndexRow] = useState(1);
+    
 
     const handleTextsetQuantity = (event: any) => {
         setQuantity(event.target.value);
@@ -56,23 +53,25 @@ export default function CreateOrder(props: any) {
     const handleTextsetTipo = (event: any) => {
         setTipo(event.target.value);
     };
+  
 
     const handleSubmit = (event: any) => {
         if (value.nome) {
-            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: valueReal.valor * textQuantity, tipo: textTipo });
+            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: valueReal.valor * textQuantity, tipo: textTipo, id: indexRow});
             setQuantity(1);
             setValor('');
             setAdicional('');
             setObs('');
             setValue({ valor: '', nome: '' });
             setValueReal({ valor: '', nome: '' });
+            setIndexRow(indexRow + 1)
         }
         event.preventDefault();
     };
     return (
         <React.Fragment>
             <form onSubmit={handleSubmit}>
-                {props.displayClient == false ? null : <TextField id="client-name" label="Nome do cliente" required sx={{ mb: 3 }} />}
+               
                 <TextField id="tipo" sx={{ display: 'none' }} onChange={handleTextsetTipo} value={textTipo} />
                 <Grid container sx={{ mb: 3 }} spacing={3}>
                     <Grid item xs={3}>
