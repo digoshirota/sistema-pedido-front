@@ -16,43 +16,60 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
+import { DataGrid } from '@mui/x-data-grid';
+import {postPedido} from '../../services/pastel-service'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-// Generate Order Data
-function createData(
-    id: number,
-    date: string,
-    name: string,
-    shipTo: string,
-    paymentMethod: string,
-    amount: number,
-) {
-    return { id, date, name, shipTo, paymentMethod, amount };
-}
 
-const rows = [
-    createData(
-        0,
-        '16 Mar, 2019',
-        'Elvis Presley',
-        'Tupelo, MS',
-        'VISA ⠀•••• 3719',
-        312.44,
-    ),
+const columns = [
+    { field: 'Tipo' },
+    { field: 'Item' },
+    { field: 'Quantidade' },
+    { field: 'Valor' },
+    { field: 'Adicional' },
 ];
-
-function preventDefault(event: React.MouseEvent) {
-    event.preventDefault();
-}
-
 
 
 
 export default function MakeOrders(props: any) {
     const [value, setValue] = React.useState({ username: '1', age: '2' });
     const [listPedido, setListPedido] = React.useState<any>([]);
+    const [nomeCLiente, setNomeCLiente] = React.useState('');
+    const [mensagem, setMensagem] = React.useState(false);
+    const resetFields = () =>{
+        setListPedido([]);
+        setNomeCLiente('');
+    }
     const sendDataToParent = (index: any) => {
         const item = index;
         setListPedido([...listPedido, item]);
+    };
+    const handleSubmit = (event: any) => {
+        event.preventDefault();
+        let data ={
+            nome_cliente: nomeCLiente,
+            lista_pedido: listPedido
+        }
+        postPedido(data).subscribe(
+            data => {
+              console.log(data)
+              if(data.status === 'success') {
+                setMensagem(true);
+                resetFields();
+                setTimeout(() => {
+                    setMensagem(false);
+                    
+                  }, 3000);
+              }
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    };
+    const handleNomeCLiente = (event: any) => {
+        setNomeCLiente(event.target.value);
     };
 
 
@@ -62,19 +79,16 @@ export default function MakeOrders(props: any) {
             <Title>Pedidos</Title>
 
             <ThemeContext.Provider value={value}>
-
+                <TextField id="client-name" label="Nome do cliente" required sx={{ mb: 3 }} value={nomeCLiente} onChange={handleNomeCLiente}/>  
                 <CreateOrder data={props.data[0]} sendDataToParent={sendDataToParent} label={'Pastel'} />
-                <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} displayClient={false} label={'Salgado'} />
-                <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} displayClient={false} label={'Bebida'} />
+                <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} label={'Salgado'} />
+                <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} label={'Bebida'} />
                 <Table size="small">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Tipo</TableCell>
-                            <TableCell>Item</TableCell>
-                            <TableCell>Quantidade</TableCell>
-                            <TableCell>Valor</TableCell>
-                            <TableCell>Adicional</TableCell>
-                            <TableCell align="right">Observação</TableCell>
+                            {columns.map((row: any, index: any) => (
+                                <TableCell>{row.field}</TableCell>
+                            ))}
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -97,15 +111,16 @@ export default function MakeOrders(props: any) {
                             id="total"
                             startAdornment={<InputAdornment position="start">R$</InputAdornment>}
                             label="Valor Total"
-                            value={listPedido.reduce(function (acc: any, obj: { valor: any; }) { return acc + obj.valor; }, 0)}
+                            value={listPedido.reduce(function (acc: any, obj: { valor: any; adicional: any }) { return acc + obj.valor + (obj.adicional ? obj.adicional : 0); }, 0)}
                         />
                     </FormControl>
                 </div>
                 <div className="fechar-pedido">
-                    <Button variant="contained" endIcon={<SaveIcon />}>
+                    <Button variant="contained" endIcon={<SaveIcon />} onClick={handleSubmit}>
                         Fechar pedido
                     </Button>
                 </div>
+                { mensagem && <Alert className="alert-notif" onClose={() => {}} variant="filled" severity="success"><AlertTitle>Sucesso</AlertTitle>Pedido Salvo!</Alert>}
             </ThemeContext.Provider >
             {/* <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
                 See more orders

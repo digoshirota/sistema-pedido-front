@@ -20,3 +20,8 @@ a {
   display: flex;
   justify-content: end;
 }
+.alert-notif{
+  position: fixed;
+  right: 34px;
+  width: 362px;
+}

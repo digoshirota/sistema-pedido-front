@@ -22,6 +22,7 @@ import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import MakeOrders from './makeOrder';
+import ActiveLink from '../../components/activeLink';
 
 const drawerWidth: number = 240;
 
@@ -109,8 +110,9 @@ function DashboardContent(props: any) {
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
-            >
+              sx={{ flexGrow: 1 }}>
+             
+          
               Dashboard
             </Typography>
             <IconButton color="inherit">
