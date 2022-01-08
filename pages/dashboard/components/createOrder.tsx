@@ -6,14 +6,14 @@ import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { formatNumberToReal, formatStringToNumber } from '../../helpers/helpers';
+import { formatNumberToReal, formatStringToNumber } from '../../../helpers/helpers';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
-import ThemeContext from '../context/orderContext'
+import ThemeContext from '../../context/orderContext'
 
 
 
@@ -57,7 +57,7 @@ export default function CreateOrder(props: any) {
 
     const handleSubmit = (event: any) => {
         if (value.nome) {
-            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: valueReal.valor * textQuantity, tipo: textTipo, id: indexRow});
+            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: parseFloat(valueReal.valor) * textQuantity, tipo: textTipo, id: indexRow});
             setQuantity(1);
             setValor('');
             setAdicional('');
@@ -106,7 +106,7 @@ export default function CreateOrder(props: any) {
                         <TextField id="quantity" label="Quantidade" onChange={handleTextsetQuantity} value={textQuantity} />
                     </Grid>
                     <Grid item xs={2}>
-                        <TextField id="valor" label="Valor" value={formatNumberToReal(valueReal.valor * textQuantity) || ''} onChange={handleTextsetValor} />
+                        <TextField id="valor" label="Valor" value={formatNumberToReal( parseFloat(valueReal.valor) * textQuantity) || ''} onChange={handleTextsetValor} />
                     </Grid>
                     <Grid item xs={3}>
                         <FormControl fullWidth >

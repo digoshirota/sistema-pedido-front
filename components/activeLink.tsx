@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router'
-
+import ListItemText from '@mui/material/ListItemText';
 
 const { Fragment } = React;
 
@@ -13,8 +13,7 @@ interface linkProps {
 const ActiveLink: React.FC<linkProps> = ({ children, href, strong }) => {
     const router = useRouter()
     const style = {
-        marginRight: 10,
-        color: router.pathname === href ? '#FF4056' : '#fff',
+        
     }
 
 
@@ -27,10 +26,10 @@ const ActiveLink: React.FC<linkProps> = ({ children, href, strong }) => {
             {
                 strong ?
                     <a href={href} onClick={handleClick} style={style}>
-                        <strong>{children}</strong>
+                        <strong><ListItemText primary={children} /></strong>
                     </a> :
                     <a href={href} onClick={handleClick} style={style}>
-                        {children}
+                        <ListItemText primary={children} />
                     </a>
             }
         </Fragment>

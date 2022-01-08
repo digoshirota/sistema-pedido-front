@@ -7,8 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import CreateOrder from './createOrder';
-import ThemeContext from '../context/orderContext';
-import { formatNumberToReal } from '../../helpers/helpers';
+import ThemeContext from '../../context/orderContext';
+import { formatNumberToReal } from '../../../helpers/helpers';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -17,9 +17,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
 import { DataGrid } from '@mui/x-data-grid';
-import {postPedido} from '../../services/pastel-service'
+import {postPedido} from '../../../services/pastel-service'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import { useRef } from 'react';
 
 
 const columns = [
@@ -37,6 +38,9 @@ export default function MakeOrders(props: any) {
     const [listPedido, setListPedido] = React.useState<any>([]);
     const [nomeCLiente, setNomeCLiente] = React.useState('');
     const [mensagem, setMensagem] = React.useState(false);
+    const [valorTotal, setvalorTotal] = React.useState('');
+    const valueRef = useRef('')
+    
     const resetFields = () =>{
         setListPedido([]);
         setNomeCLiente('');
@@ -49,7 +53,9 @@ export default function MakeOrders(props: any) {
         event.preventDefault();
         let data ={
             nome_cliente: nomeCLiente,
-            lista_pedido: listPedido
+            lista_pedido: JSON.stringify(listPedido),
+            valor_total:valorTotal,
+            date: new Date()
         }
         postPedido(data).subscribe(
             data => {
@@ -71,6 +77,12 @@ export default function MakeOrders(props: any) {
     const handleNomeCLiente = (event: any) => {
         setNomeCLiente(event.target.value);
     };
+    const handleTextsetValorTotal= (event: any) => {
+        console.log(event)
+        setvalorTotal(event.target.value);
+    };
+  
+   
 
 
 
@@ -87,7 +99,7 @@ export default function MakeOrders(props: any) {
                     <TableHead>
                         <TableRow>
                             {columns.map((row: any, index: any) => (
-                                <TableCell>{row.field}</TableCell>
+                                <TableCell key={row.field + index}>{row.field}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -111,6 +123,8 @@ export default function MakeOrders(props: any) {
                             id="total"
                             startAdornment={<InputAdornment position="start">R$</InputAdornment>}
                             label="Valor Total"
+                            onChange={handleTextsetValorTotal}
+                            inputRef={valueRef} 
                             value={listPedido.reduce(function (acc: any, obj: { valor: any; adicional: any }) { return acc + obj.valor + (obj.adicional ? obj.adicional : 0); }, 0)}
                         />
                     </FormControl>
