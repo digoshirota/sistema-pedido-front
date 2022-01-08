@@ -9,11 +9,12 @@ interface Props {
   dataPastel?: any;
   dataSalgado?: any;
   dataBebida?: any;
+  dataPedido?: any;
 }
 
-const Home: NextPage<Props> = ({ dataPastel, dataSalgado, dataBebida }) => {
+const Home: NextPage<Props> = ({ dataPastel, dataSalgado, dataBebida, dataPedido }) => {
   return (
-    <Dashboard data={[dataPastel, dataSalgado, dataBebida]} />
+    <Dashboard data={[dataPastel, dataSalgado, dataBebida,dataPedido]} />
   )
 }
 
@@ -24,7 +25,9 @@ Home.getInitialProps = async ({ req }) => {
   const dataSalgado = await res2.json();
   const res3 = await fetch(`${baseApiBack}/bebida`);
   const dataBebida = await res3.json();
-  return { dataPastel, dataSalgado, dataBebida }
+  const res4 = await fetch(`${baseApiBack}/pedidos`,{ method: "GET"});
+  const dataPedido = await res4.json();
+  return { dataPastel, dataSalgado, dataBebida,dataPedido }
 }
 
 

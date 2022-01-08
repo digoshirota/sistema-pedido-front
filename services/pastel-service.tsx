@@ -9,7 +9,12 @@ const postPedido = (data:any) => {
     return post(`/pedidos`,data, false, 'local')
 }
 
+const getPedido = () => {
+    return get(`/pedidos`,false, 'local')
+}
+
 export {
     getPastel,
-    postPedido
+    postPedido,
+    getPedido
 }

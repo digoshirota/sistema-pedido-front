@@ -17,12 +17,13 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-import Chart from './Chart';
-import Deposits from './Deposits';
-import Orders from './Orders';
-import MakeOrders from './makeOrder';
+import { mainListItems, secondaryListItems } from './components/listItems';
+import Chart from './components/Chart';
+import Deposits from './components/Deposits';
+import Orders from './components/Orders';
+import MakeOrders from './components/makeOrder';
 import ActiveLink from '../../components/activeLink';
+import { getPedido } from '../../services/pastel-service';
 
 const drawerWidth: number = 240;
 
@@ -78,10 +79,28 @@ const mdTheme = createTheme();
 
 function DashboardContent(props: any) {
   const [open, setOpen] = React.useState(true);
+  const [dataPedido, setdataPedido] = React.useState([]);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  console.log(props.data[3])
+  // const listPedido = () => {
+  //   getPedido().subscribe(
+  //     data => {
+  //       console.log(data)
+       
+  //     },
+  //     error => {
+  //         console.log(error)
+  //     }
+  //   );
+  // };
+  // listPedido();
 
+ 
+ 
+   
+ 
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -164,18 +183,18 @@ function DashboardContent(props: any) {
             </Grid>
           </Container>
           {/* Recent Orders */}
-          {/* <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
             <Grid container spacing={3}>
              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <Orders data={props.data[3]} />
                 </Paper>
               </Grid>
             </Grid>
 
-          </Container> */}
+          </Container>
         </Box>
       </Box>
     </ThemeProvider>

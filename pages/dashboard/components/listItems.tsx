@@ -9,7 +9,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import ActiveLink from '../../components/activeLink';
+import ActiveLink from '../../../components/activeLink';
 export const mainListItems = (
   <div>
     <ListItem button>
