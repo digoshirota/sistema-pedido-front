@@ -29,6 +29,7 @@ const columns = [
     { field: 'Quantidade' },
     { field: 'Valor' },
     { field: 'Adicional' },
+    { field: 'Observação' },
 ];
 
 
@@ -38,8 +39,9 @@ export default function MakeOrders(props: any) {
     const [listPedido, setListPedido] = React.useState<any>([]);
     const [nomeCLiente, setNomeCLiente] = React.useState('');
     const [mensagem, setMensagem] = React.useState(false);
+    const [mensagem2, setMensagem2] = React.useState('');
     const [valorTotal, setvalorTotal] = React.useState('');
-    const valueRef = useRef('')
+    const valueRef:any = useRef('')
     
     const resetFields = () =>{
         setListPedido([]);
@@ -54,25 +56,42 @@ export default function MakeOrders(props: any) {
         let data ={
             nome_cliente: nomeCLiente,
             lista_pedido: JSON.stringify(listPedido),
-            valor_total:valorTotal,
-            date: new Date()
+            valor_total: valueRef.current.value,
+            date: new Date(),
+            atendido: 0
         }
-        postPedido(data).subscribe(
-            data => {
-              console.log(data)
-              if(data.status === 'success') {
-                setMensagem(true);
-                resetFields();
-                setTimeout(() => {
-                    setMensagem(false);
-                    
-                  }, 3000);
-              }
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        
+        if(data.nome_cliente){
+            postPedido(data).subscribe(
+                data2 => {
+           
+                  if(data2.status === 'success') {
+                    setMensagem(true);
+                    resetFields();
+                    props.retornaCallBack(data);
+                    setTimeout(() => {
+                        setMensagem(false);
+                        
+                      }, 3000);
+                  }
+                },
+                error => {
+                    setMensagem2('erro ao salvar')
+                    setTimeout(() => {
+                        setMensagem2('');
+                        
+                      }, 3000);
+                    console.log(error)
+                }
+            )
+        }
+        else{
+            setMensagem2('Preencher formulario')
+            setTimeout(() => {
+                setMensagem2('');
+                
+              }, 3000);
+        }
     };
     const handleNomeCLiente = (event: any) => {
         setNomeCLiente(event.target.value);
@@ -104,7 +123,7 @@ export default function MakeOrders(props: any) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {listPedido.map((row: any, index: any) => (
+                        {listPedido.reverse().map((row: any, index: any) => (
                             <TableRow key={row.name + index}>
                                 <TableCell>{row.tipo}</TableCell>
                                 <TableCell>{row.name}</TableCell>
@@ -123,9 +142,8 @@ export default function MakeOrders(props: any) {
                             id="total"
                             startAdornment={<InputAdornment position="start">R$</InputAdornment>}
                             label="Valor Total"
-                            onChange={handleTextsetValorTotal}
                             inputRef={valueRef} 
-                            value={listPedido.reduce(function (acc: any, obj: { valor: any; adicional: any }) { return acc + obj.valor + (obj.adicional ? obj.adicional : 0); }, 0)}
+                            value={parseFloat(listPedido.reduce(function (acc: any, obj: { valor: any; adicional: any }) { return acc + obj.valor + (obj.adicional ? obj.adicional : 0); }, 0))}
                         />
                     </FormControl>
                 </div>
@@ -135,6 +153,7 @@ export default function MakeOrders(props: any) {
                     </Button>
                 </div>
                 { mensagem && <Alert className="alert-notif" onClose={() => {}} variant="filled" severity="success"><AlertTitle>Sucesso</AlertTitle>Pedido Salvo!</Alert>}
+                { mensagem2 && <Alert className="alert-notif" onClose={() => {}} variant="filled" severity="error"><AlertTitle>Erro</AlertTitle>{mensagem2}</Alert>}
             </ThemeContext.Provider >
             {/* <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
                 See more orders

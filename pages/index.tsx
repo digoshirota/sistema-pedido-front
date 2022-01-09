@@ -14,7 +14,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ dataPastel, dataSalgado, dataBebida, dataPedido }) => {
   return (
-    <Dashboard data={[dataPastel, dataSalgado, dataBebida,dataPedido]} />
+    <Dashboard data={[dataPastel, dataSalgado, dataBebida,dataPedido]} visible={{makeOrder:true,orders:true}} />
   )
 }
 

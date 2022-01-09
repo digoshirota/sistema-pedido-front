@@ -21,3 +21,10 @@ export const formatNumberToReal: any = (num: any) => {
 export const formatStringToNumber: any = (num: any) => {
     return parseFloat(num)
 }
+
+export const formatStringData: any = (num: any) => {
+    return new Date(num).toLocaleDateString('pt-BR') + ' '+ new Date(num).toLocaleTimeString();
+}
+
+
+
