@@ -24,6 +24,8 @@ import Orders from './components/Orders';
 import MakeOrders from './components/makeOrder';
 import ActiveLink from '../../components/activeLink';
 import { getPedido } from '../../services/pastel-service';
+import { formatStringData } from '../../helpers/helpers';
+
 
 const drawerWidth: number = 240;
 
@@ -80,28 +82,18 @@ const mdTheme = createTheme();
 function DashboardContent(props: any) {
   const [open, setOpen] = React.useState(true);
   const [dataPedido, setdataPedido] = React.useState([]);
+  const [shouldUpdate, setshouldUpdate] = React.useState(0);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  console.log(props.data[3])
-  // const listPedido = () => {
-  //   getPedido().subscribe(
-  //     data => {
-  //       console.log(data)
-       
-  //     },
-  //     error => {
-  //         console.log(error)
-  //     }
-  //   );
-  // };
-  // listPedido();
-
- 
- 
-   
- 
-
+  let i = 0;
+  const retornaCallBack = (index: any) => {
+    getPedido().subscribe({
+      next: (v) => {setdataPedido(v);setshouldUpdate(i +1)},
+      error: (e) => console.error(e),
+      complete: () => console.info('complete') 
+    })
+  };
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
@@ -172,29 +164,32 @@ function DashboardContent(props: any) {
           }}
         >
           <Toolbar />
+          {props.visible.makeOrder == true ?
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* make Orders */}
+
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <MakeOrders data={props.data} />
+                  <MakeOrders data={props.data} retornaCallBack={retornaCallBack} />
                 </Paper>
               </Grid>
             </Grid>
           </Container>
-          {/* Recent Orders */}
+          : null}
+          {props.visible.orders == true ?
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
 
             <Grid container spacing={3}>
              
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={props.data[3]} />
+                  <Orders data={shouldUpdate > 0 ?dataPedido: props.data[3] } />
                 </Paper>
               </Grid>
             </Grid>
 
           </Container>
+          :null}
         </Box>
       </Box>
     </ThemeProvider>
@@ -202,5 +197,5 @@ function DashboardContent(props: any) {
 }
 
 export default function Dashboard(props: any) {
-  return <DashboardContent data={props.data} />;
+  return <DashboardContent data={props.data} visible={props.visible} />;
 }

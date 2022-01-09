@@ -13,13 +13,14 @@ interface linkProps {
 const ActiveLink: React.FC<linkProps> = ({ children, href, strong }) => {
     const router = useRouter()
     const style = {
-        
-    }
+        color: router.pathname === href ? 'blue' : 'black',
+      }
 
 
     const handleClick = (e:any) => {
         e.preventDefault()
         router.push(href)
+        console.log(router)
     }
     return (
         <Fragment>
