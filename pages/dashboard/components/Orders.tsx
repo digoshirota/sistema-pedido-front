@@ -40,7 +40,7 @@ export default function Orders(props: any) {
             data => {
               if(data.status === 'success') {
                 getPedido().subscribe({
-                  next: (v) => {setPedidoList(v);setShouldUpdate(true)},
+                  next: (v) => {setPedidoList(v.reverse());setShouldUpdate(true)},
                   error: (e) => console.error(e),
                   complete: () => console.info('complete') 
               })
@@ -68,24 +68,26 @@ export default function Orders(props: any) {
             <TableCell align="right"></TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {lastOrders.sliced.map((row:any,index:any) => (
+        <TableBody className="tabela-pedidos">
+          {lastOrders.sliced.reverse().map((row:any,index:any) => (
       
             <TableRow key={row.id_pedido}>
               <TableCell>{formatStringData(row.date)}</TableCell>
               <TableCell>{row.nome_cliente}</TableCell>
               <TableCell>
-              {row.lista_pedido.map((el:any,index:any) => (
-                  <TableBody>
-                    <TableRow key={el.index+el.name}>
-                      <TableCell>{el.tipo}</TableCell>
-                      <TableCell>{el.name}</TableCell>
-                      <TableCell>{el.quantity}</TableCell>
+                <TableBody className="table-lista-pedidos">
+                  {row.lista_pedido.map((el:any,index:any) => (
                       
-                    </TableRow>
+                        <TableRow key={el.index+el.name}>
+                          <TableCell>{el.tipo}</TableCell>
+                          <TableCell>{el.name}</TableCell>
+                          <TableCell>{el.quantity}</TableCell>
+                          
+                        </TableRow>
 
-                  </TableBody>
-                ))}
+                    
+                    ))}
+                 </TableBody>
               </TableCell>
               <TableCell align="right">{`R$ ${row.valor}`}</TableCell>
               <TableCell align="right">{row.atendido == 1?   <Button variant="contained" color="success">

@@ -25,3 +25,12 @@ a {
   right: 34px;
   width: 362px;
 }
+.tabela-pedidos > tr:nth-child(even) {
+  background: #e8e8e8;
+}
+.tabela-pedidos td {
+  padding: 16px 16px;
+}
+.table-lista-pedidos{
+  border: 2px solid #000;
+}

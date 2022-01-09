@@ -123,7 +123,7 @@ export default function MakeOrders(props: any) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {listPedido.map((row: any, index: any) => (
+                        {listPedido.reverse().map((row: any, index: any) => (
                             <TableRow key={row.name + index}>
                                 <TableCell>{row.tipo}</TableCell>
                                 <TableCell>{row.name}</TableCell>
