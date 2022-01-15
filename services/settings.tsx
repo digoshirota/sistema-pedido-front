@@ -7,8 +7,7 @@ export const isTest = () => process.env.isTesting === 'true';
 let ApiBack: string = "";
 
 if (isProd) {
-    ApiBack = 'https://r3investimentos.com.br';
-    //ApiBack = 'http://localhost:3000';
+    ApiBack = 'http://localhost:3333';
 }
 else {
     //ApiBack = 'https://r3investimentos.com.br';
