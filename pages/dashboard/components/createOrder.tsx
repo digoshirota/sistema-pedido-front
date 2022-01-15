@@ -70,9 +70,9 @@ export default function CreateOrder(props: any) {
     };
     return (
         <React.Fragment>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ marginBottom:25 }}>
                
-                <TextField id="tipo" sx={{ display: 'none' }} onChange={handleTextsetTipo} value={textTipo} />
+                <TextField id="tipo" sx={{ display: 'none'}} onChange={handleTextsetTipo} value={textTipo} />
                 <Grid container sx={{ mb: 3 }} spacing={3}>
                     <Grid item xs={3}>
                         <Stack>
@@ -102,7 +102,7 @@ export default function CreateOrder(props: any) {
                             />
                         </Stack>
                     </Grid>
-                    <Grid item xs={1}>
+                    <Grid item xs={2} md={2} lg={1}>
                         <TextField id="quantity" label="Quantidade" onChange={handleTextsetQuantity} value={textQuantity} />
                     </Grid>
                     <Grid item xs={2}>

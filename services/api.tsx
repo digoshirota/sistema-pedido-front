@@ -59,12 +59,13 @@ const patch = (
 
 const del = (
     endpoint: string,
+    data: any,
     useAuth: boolean = true,
     host: string,
     responseType: string = 'json',
     timeout: number = 0,
 ): Observable<any> => {
-    return _axiosCall('delete', endpoint, useAuth, host, { responseType, timeout });
+    return _axiosCall('delete', endpoint, useAuth, host, { responseType, timeout }, data);
 };
 
 const _axiosCall = (

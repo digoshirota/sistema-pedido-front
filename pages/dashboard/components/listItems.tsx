@@ -1,32 +1,46 @@
 import * as React from 'react';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import LayersIcon from '@mui/icons-material/Layers';
-import AssignmentIcon from '@mui/icons-material/Assignment';
 import ActiveLink from '../../../components/activeLink';
+import AddIcon from '@mui/icons-material/Add';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 export const mainListItems = (
   <div>
-    <ListItem button>
-      <ListItemIcon>
-        <DashboardIcon />
-      </ListItemIcon>
-      <ActiveLink href='/' children='Dashboard'></ActiveLink>
+    <ActiveLink href='/'>
+      <ListItem button>
+        <ListItemIcon>
+          <DashboardIcon />
+        </ListItemIcon>
+        Dashboard
+      </ListItem>
+    </ActiveLink>
+    <ActiveLink href='/pedidos'>
+      <ListItem button>
+        <ListItemIcon>
+          <ShoppingCartIcon />
+        </ListItemIcon>
+        Pedidos
+      </ListItem>
+    </ActiveLink>
+    <ActiveLink href='/cadastro'>
+      <ListItem button>
+        <ListItemIcon>
+          <AddIcon />
+        </ListItemIcon>
+        Cadastro
+      </ListItem>
+    </ActiveLink>
+    <ActiveLink href='/lista-pedido'>
+      <ListItem button>
+        <ListItemIcon>
+          <FormatListNumberedIcon />
+        </ListItemIcon>
+        Lista de pedidos
+      </ListItem>
+    </ActiveLink>
 
-     
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <ShoppingCartIcon />
-      </ListItemIcon>
-      <ActiveLink href='/pedidos' children='Pedidos'></ActiveLink>
-    
-    </ListItem>
     {/* <ListItem button>
       <ListItemIcon>
         <PeopleIcon />

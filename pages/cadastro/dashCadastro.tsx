@@ -17,11 +17,11 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './components/listItems';
-import Chart from './components/Chart';
-import Deposits from './components/Deposits';
-import Orders from './components/Orders';
-import MakeOrders from './components/makeOrder';
+import { mainListItems, secondaryListItems } from '../dashboard/components/listItems';
+import Chart from '../dashboard/components/Chart';
+import Deposits from '../dashboard/components/Deposits';
+import Orders from '../dashboard/components/Orders';
+import MakeCadastro from './makeCadastro';
 import ActiveLink from '../../components/activeLink';
 import { getPedido } from '../../services/pastel-service';
 import { formatStringData } from '../../helpers/helpers';
@@ -79,7 +79,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
-function DashboardContent(props: any) {
+function CadastroContent(props: any) {
   const [open, setOpen] = React.useState(true);
   const [dataPedido, setdataPedido] = React.useState([]);
   const [shouldUpdate, setshouldUpdate] = React.useState(0);
@@ -163,32 +163,28 @@ function DashboardContent(props: any) {
           }}
         >
           <Toolbar />
-          {props.visible.makeOrder == true ?
+       
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
 
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <MakeOrders data={props.data} retornaCallBack={retornaCallBack} />
+                  <MakeCadastro data={props.data[0]} retornaCallBack={retornaCallBack} label={'pastel'}/>
                 </Paper>
               </Grid>
-            </Grid>
-          </Container>
-          : null}
-          {props.visible.orders == true ?
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
-            <Grid container spacing={3}>
-             
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders data={shouldUpdate > 0 ?dataPedido: props.data[3] } />
+                  <MakeCadastro data={props.data[1]} retornaCallBack={retornaCallBack} label={'salgado'}/>
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  <MakeCadastro data={props.data[2]} retornaCallBack={retornaCallBack} label={'bebida'}/>
                 </Paper>
               </Grid>
             </Grid>
-
           </Container>
-          :null}
+
         </Box>
       </Box>
     </ThemeProvider>
@@ -196,5 +192,5 @@ function DashboardContent(props: any) {
 }
 
 export default function Dashboard(props: any) {
-  return <DashboardContent data={props.data} visible={props.visible} />;
+  return <CadastroContent data={props.data} visible={props.visible} />;
 }

@@ -24,6 +24,7 @@ a {
   position: fixed;
   right: 34px;
   width: 362px;
+  top: 87px;
 }
 .tabela-pedidos > tr:nth-child(even) {
   background: #e8e8e8;
@@ -33,4 +34,11 @@ a {
 }
 .table-lista-pedidos{
   border: 2px solid #000;
+}
+
+.MuiGrid-item .MuiTextField-root{
+  width: 100%;
+}
+.hidden{
+  display: none;
 }

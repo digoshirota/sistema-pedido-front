@@ -110,7 +110,7 @@ export default function MakeOrders(props: any) {
             <Title>Pedidos</Title>
 
             <ThemeContext.Provider value={value}>
-                <TextField id="client-name" label="Nome do cliente" required sx={{ mb: 3 }} value={nomeCLiente} onChange={handleNomeCLiente}/>  
+                <TextField id="client-name" label="Nome do cliente" required sx={{ mb: 3, marginBottom:7   }} value={nomeCLiente} onChange={handleNomeCLiente}/>  
                 <CreateOrder data={props.data[0]} sendDataToParent={sendDataToParent} label={'Pastel'} />
                 <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} label={'Salgado'} />
                 <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} label={'Bebida'} />
