@@ -6,10 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
-import { formatStringData } from '../../../helpers/helpers';
+import { formatStringData } from '../helpers/helpers';
 import { useRouter } from 'next/router'
 import Button from '@mui/material/Button';
-import { postPedido, getPedido } from '../../../services/pastel-service';
+import { postPedido, getPedido } from '../services/pastel-service';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';

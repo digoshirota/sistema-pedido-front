@@ -17,14 +17,15 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from './components/listItems';
-import Chart from './components/Chart';
-import Deposits from './components/Deposits';
-import Orders from './components/Orders';
-import MakeOrders from './components/makeOrder';
-import ActiveLink from '../../components/activeLink';
-import { getPedido } from '../../services/pastel-service';
-import { formatStringData } from '../../helpers/helpers';
+import { mainListItems, secondaryListItems } from '../components/listItems';
+import Chart from '../components/Chart';
+import Deposits from '../components/Deposits';
+import Orders from '../components/Orders';
+import MakeOrders from '../components/makeOrder';
+import ActiveLink from '../components/activeLink';
+import { getPedido } from '../services/pastel-service';
+import { formatStringData } from '../helpers/helpers';
+
 
 
 const drawerWidth: number = 240;
@@ -88,7 +89,6 @@ function DashboardContent(props: any) {
   };
   let i = 0;
   const retornaCallBack = (index: any) => {
-    console.log('retorna')
     getPedido().subscribe({
       next: (v) => {setdataPedido(v);setshouldUpdate(i +1)},
       error: (e) => console.error(e),

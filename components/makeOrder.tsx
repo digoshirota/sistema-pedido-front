@@ -7,8 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Title from './Title';
 import CreateOrder from './createOrder';
-import ThemeContext from '../../context/orderContext';
-import { formatNumberToReal } from '../../../helpers/helpers';
+import ThemeContext from '../context/orderContext';
+import { formatNumberToReal } from '../helpers/helpers';
 import TextField from '@mui/material/TextField';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
@@ -17,7 +17,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
 import { DataGrid } from '@mui/x-data-grid';
-import {postPedido} from '../../../services/pastel-service'
+import {postPedido} from '../services/pastel-service'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useRef } from 'react';
