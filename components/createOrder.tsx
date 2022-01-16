@@ -13,6 +13,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 
 
@@ -34,6 +36,7 @@ export default function CreateOrder(props: any) {
     const [textValor, setValor] = useState('');
     const [textAdicional, setAdicional] = useState('');
     const [textObs, setObs] = useState('');
+    const [cozinha, setCozinha] = useState(0);
     const [textTipo, setTipo] = useState(props.label);
     const [indexRow, setIndexRow] = useState(1);
     
@@ -53,11 +56,14 @@ export default function CreateOrder(props: any) {
     const handleTextsetTipo = (event: any) => {
         setTipo(event.target.value);
     };
+    const handleCozinha = (event: any) => {
+        setCozinha(event.target.value);
+    };
   
 
     const handleSubmit = (event: any) => {
         if (value.nome) {
-            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: parseFloat(valueReal.valor) * textQuantity, tipo: textTipo, id: indexRow});
+            props.sendDataToParent({ name: value.nome, quantity: textQuantity, adicional: formatStringToNumber(textAdicional), obs: textObs, valor: parseFloat(valueReal.valor) * textQuantity, tipo: textTipo, id: indexRow,cozinha:cozinha});
             setQuantity(1);
             setValor('');
             setAdicional('');
@@ -65,6 +71,7 @@ export default function CreateOrder(props: any) {
             setValue({ valor: '', nome: '' });
             setValueReal({ valor: '', nome: '' });
             setIndexRow(indexRow + 1)
+            setCozinha(0);
         }
         event.preventDefault();
     };
@@ -74,7 +81,7 @@ export default function CreateOrder(props: any) {
                
                 <TextField id="tipo" sx={{ display: 'none'}} onChange={handleTextsetTipo} value={textTipo} />
                 <Grid container sx={{ mb: 3 }} spacing={3}>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} md={4} lg={3}>
                         <Stack>
                             <Autocomplete
                                 freeSolo
@@ -102,13 +109,13 @@ export default function CreateOrder(props: any) {
                             />
                         </Stack>
                     </Grid>
-                    <Grid item xs={2} md={2} lg={1}>
+                    <Grid item xs={12} md={2} lg={1}>
                         <TextField id="quantity" label="Quantidade" onChange={handleTextsetQuantity} value={textQuantity} />
                     </Grid>
-                    <Grid item xs={2}>
+                    <Grid item xs={6} md={3} lg={2}>
                         <TextField id="valor" label="Valor" value={formatNumberToReal( parseFloat(valueReal.valor) * textQuantity) || ''} onChange={handleTextsetValor} />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6} lg={2}>
                         <FormControl fullWidth >
                             <InputLabel htmlFor="outlined-adornment-adicional">adicional</InputLabel>
                             <OutlinedInput
@@ -120,9 +127,14 @@ export default function CreateOrder(props: any) {
                             />
                         </FormControl>
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={12} lg={3}>
                         <TextField id="obs" label="observação" sx={{ width: '100%' }} onChange={handleTextsetObs} value={textObs} />
                     </Grid>
+                    <Grid item xs={12} lg={1}>
+                        <FormControlLabel control={<Checkbox />} label="Cozinha" labelPlacement="bottom" onChange={handleCozinha} value={cozinha} />
+                    </Grid>
+
+         
                     <Grid item xs={3}>
                         <Button type="submit" color="success" variant="contained" endIcon={<AddIcon />}>
                             Adicionar

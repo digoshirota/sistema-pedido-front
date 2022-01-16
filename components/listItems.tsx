@@ -40,6 +40,14 @@ export const mainListItems = (
         Lista de pedidos
       </ListItem>
     </ActiveLink>
+    <ActiveLink href='/lista-pedido-cozinha'>
+      <ListItem button>
+        <ListItemIcon>
+          <FormatListNumberedIcon />
+        </ListItemIcon>
+        Cozinha
+      </ListItem>
+    </ActiveLink>
 
     {/* <ListItem button>
       <ListItemIcon>

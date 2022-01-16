@@ -21,6 +21,7 @@ import {postPedido} from '../services/pastel-service'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useRef } from 'react';
+import Grid from '@mui/material/Grid';
 
 
 const columns = [
@@ -53,12 +54,14 @@ export default function MakeOrders(props: any) {
     };
     const handleSubmit = (event: any) => {
         event.preventDefault();
+        console.log('listPedido.cozinha',listPedido.cozinha)
         let data ={
             nome_cliente: nomeCLiente,
             lista_pedido: JSON.stringify(listPedido),
             valor_total: valueRef.current.value,
             date: new Date(),
-            atendido: 0
+            atendido: 0,
+            cozinha: listPedido.cozinha
         }
         
         if(data.nome_cliente){
@@ -114,31 +117,34 @@ export default function MakeOrders(props: any) {
                 <CreateOrder data={props.data[0]} sendDataToParent={sendDataToParent} label={'Pastel'} />
                 <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} label={'Salgado'} />
                 <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} label={'Bebida'} />
-                <Table size="small">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((row: any, index: any) => (
-                                <TableCell key={row.field + index}>{row.field}</TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {listPedido.reverse().map((row: any, index: any) => (
-                            <TableRow key={row.name + index}>
-                                <TableCell>{row.tipo}</TableCell>
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.quantity}</TableCell>
-                                <TableCell>{formatNumberToReal(row.valor)}</TableCell>
-                                <TableCell>{formatNumberToReal(row.adicional)}</TableCell>
-                                <TableCell align="right">{`${row.obs}`}</TableCell>
+                <Grid item xs={12} sx={{overflow:'scroll'}}>    
+                    <Table size="small">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((row: any, index: any) => (
+                                    <TableCell key={row.field + index}>{row.field}</TableCell>
+                                ))}
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                        </TableHead>
+                        <TableBody>
+                            {listPedido.reverse().map((row: any, index: any) => (
+                                <TableRow key={row.name + index}>
+                                    <TableCell>{row.tipo}</TableCell>
+                                    <TableCell>{row.name}</TableCell>
+                                    <TableCell>{row.quantity}</TableCell>
+                                    <TableCell>{formatNumberToReal(row.valor)}</TableCell>
+                                    <TableCell>{formatNumberToReal(row.adicional)}</TableCell>
+                                    <TableCell align="right">{`${row.obs}`}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Grid>
                 <div className="total">
                     <FormControl >
                         <InputLabel htmlFor="total">Valor Total</InputLabel>
                         <OutlinedInput
+                            disabled
                             id="total"
                             startAdornment={<InputAdornment position="start">R$</InputAdornment>}
                             label="Valor Total"

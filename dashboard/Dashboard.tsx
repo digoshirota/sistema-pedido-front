@@ -69,10 +69,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
+        width: 0,
+        // [theme.breakpoints.up('sm')]: {
+        //   width: theme.spacing(9),
+        // },
       }),
     },
   }),
@@ -82,7 +82,7 @@ const mdTheme = createTheme();
 
 function DashboardContent(props: any) {
   const [open, setOpen] = React.useState(true);
-  const [dataPedido, setdataPedido] = React.useState([]);
+  const [dataPedido, setdataPedido] = React.useState(props.data[3]);
   const [shouldUpdate, setshouldUpdate] = React.useState(0);
   const toggleDrawer = () => {
     setOpen(!open);

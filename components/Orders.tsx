@@ -13,6 +13,7 @@ import { postPedido, getPedido } from '../services/pastel-service';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import Box from '@mui/material/Box';
 import { useEffect } from 'react';
+import { Grid } from '@mui/material';
 
 
 
@@ -32,6 +33,8 @@ export default function Orders(props: any) {
   const lastOrders = {
       sliced: router.pathname === '/pedidos' ? (shouldUpdate > 0 ?pedidoList: props.data) : (shouldUpdate > 0 ?pedidoList.slice(0, 5):props.data.slice(0, 5)),
   }
+  console.log(shouldUpdate)
+  console.log(lastOrders.sliced)
   const handleSubmit:any = (idPedido: any) => (e:any) => {
     e.preventDefault();
     let data ={
@@ -97,48 +100,51 @@ useEffect(() => {
                           Atualizar
         </Button>
       </Box>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Data</TableCell>
-            <TableCell>Nome</TableCell>
-            <TableCell>Pedido</TableCell>
-            <TableCell align="right">Valor Total</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody className="tabela-pedidos">
-          {lastOrders.sliced.filter((x: { atendido: any; }) => (x.atendido)== 0).map((row:any,index:any) => (
-      
-            <TableRow key={row.id_pedido}>
-              <TableCell>{formatStringData(row.date)}</TableCell>
-              <TableCell>{row.nome_cliente}</TableCell>
-              <TableCell>
-                <TableBody className="table-lista-pedidos">
-                  {row.lista_pedido.map((el:any,index:any) => (
-                      
-                        <TableRow key={el.index+el.name}>
-                          <TableCell>{el.tipo}</TableCell>
-                          <TableCell>{el.name}</TableCell>
-                          <TableCell>{el.quantity}</TableCell>
-                          
-                        </TableRow>
-
-                    
-                    ))}
-                 </TableBody>
-              </TableCell>
-              <TableCell align="right">{`R$ ${row.valor}`}</TableCell>
-              <TableCell align="right">{row.atendido == 1?   <Button variant="contained" color="success">
-                  Atendido
-                </Button>:<Button variant="contained" color="error" onClick={handleSubmit(row.id_pedido)}>
-                  Não Atendido
-                </Button>}
-              </TableCell>
+      <Grid item xs={12} sx={{overflow:'scroll'}}>  
+        <Table size="small">
+          <TableHead>
+            <TableRow>
+              <TableCell>Data</TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell>Pedido</TableCell>
+              <TableCell align="right">Valor Total</TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHead>
+          <TableBody className="tabela-pedidos">
+            {lastOrders.sliced.filter((x: { atendido: any; }) => (x.atendido)== 0).map((row:any,index:any) => (
+        
+              <TableRow key={row.id_pedido}>
+                <TableCell>{formatStringData(row.date)}</TableCell>
+                <TableCell>{row.nome_cliente}</TableCell>
+                <TableCell>
+                  <TableBody className="table-lista-pedidos">
+                    {row.lista_pedido.map((el:any,index:any) => (
+                        
+                          <TableRow key={el.index+el.name}>
+                            <TableCell>{el.tipo}</TableCell>
+                            <TableCell>{el.name}</TableCell>
+                            <TableCell>{el.quantity}</TableCell>
+                            
+                          </TableRow>
+
+                      
+                      ))}
+                  </TableBody>
+                </TableCell>
+                <TableCell align="right">{`R$ ${row.valor}`}</TableCell>
+                <TableCell align="right">{row.atendido == 1?   <Button variant="contained" color="success">
+                    Atendido
+                  </Button>:<Button variant="contained" color="error" onClick={handleSubmit(row.id_pedido)}>
+                    Não Atendido
+                  </Button>}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Grid>
+     
       
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more orders
