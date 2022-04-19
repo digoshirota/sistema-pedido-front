@@ -13,7 +13,7 @@ export const mainListItems = (
         <ListItemIcon>
           <DashboardIcon />
         </ListItemIcon>
-        Dashboard
+        Caixa
       </ListItem>
     </ActiveLink>
     <ActiveLink href='/pedidos'>
@@ -40,14 +40,14 @@ export const mainListItems = (
         Lista de pedidos
       </ListItem>
     </ActiveLink>
-    <ActiveLink href='/lista-pedido-cozinha'>
+    {/* <ActiveLink href='/lista-pedido-cozinha'>
       <ListItem button>
         <ListItemIcon>
           <FormatListNumberedIcon />
         </ListItemIcon>
         Cozinha
       </ListItem>
-    </ActiveLink>
+    </ActiveLink> */}
 
     {/* <ListItem button>
       <ListItemIcon>

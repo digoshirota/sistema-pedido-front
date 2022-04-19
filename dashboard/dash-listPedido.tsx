@@ -193,6 +193,8 @@ function CadastroContent(props: any) {
                                                                         <TableCell>{el.tipo}</TableCell>
                                                                         <TableCell>{el.name}</TableCell>
                                                                         <TableCell>{el.quantity}</TableCell>
+                                                                        <TableCell>{el.obs ?el.obs: null }</TableCell>
+                            <TableCell> {el.adicional ? "R$ "+ el.adicional: null }</TableCell>
                                                                     </TableRow>
                                                                 ))}
                                                             </TableBody>

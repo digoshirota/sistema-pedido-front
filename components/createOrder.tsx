@@ -130,9 +130,9 @@ export default function CreateOrder(props: any) {
                     <Grid item xs={12} lg={3}>
                         <TextField id="obs" label="observação" sx={{ width: '100%' }} onChange={handleTextsetObs} value={textObs} />
                     </Grid>
-                    <Grid item xs={12} lg={1}>
+                    {/* <Grid item xs={12} lg={1}>
                         <FormControlLabel control={<Checkbox />} label="Cozinha" labelPlacement="bottom" onChange={handleCozinha} value={cozinha} />
-                    </Grid>
+                    </Grid> */}
 
          
                     <Grid item xs={3}>

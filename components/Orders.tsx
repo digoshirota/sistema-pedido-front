@@ -125,6 +125,8 @@ useEffect(() => {
                             <TableCell>{el.tipo}</TableCell>
                             <TableCell>{el.name}</TableCell>
                             <TableCell>{el.quantity}</TableCell>
+                            <TableCell>{el.obs ?el.obs: null }</TableCell>
+                            <TableCell> {el.adicional ? "R$ "+ el.adicional: null }</TableCell>
                             
                           </TableRow>
 
@@ -146,9 +148,7 @@ useEffect(() => {
       </Grid>
      
       
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
+     
     </React.Fragment>
   );
 }
