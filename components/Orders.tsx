@@ -33,8 +33,7 @@ export default function Orders(props: any) {
   const lastOrders = {
       sliced: router.pathname === '/pedidos' ? (shouldUpdate > 0 ?pedidoList: props.data) : (shouldUpdate > 0 ?pedidoList.slice(0, 5):props.data.slice(0, 5)),
   }
-  console.log(shouldUpdate)
-  console.log(lastOrders.sliced)
+
   const handleSubmit:any = (idPedido: any) => (e:any) => {
     e.preventDefault();
     let data ={

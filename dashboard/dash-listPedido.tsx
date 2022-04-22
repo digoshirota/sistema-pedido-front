@@ -95,6 +95,14 @@ function CadastroContent(props: any) {
             complete: () => console.info('complete')
         })
     };
+    let filterToday = props.data[0].filter((a:any) => {
+        var date = new Date(a.date).toLocaleDateString();
+        var today = new Date().toLocaleDateString();
+        console.log(date,today)
+        return (date >= today);
+    });
+    console.log(filterToday)
+    
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -180,7 +188,7 @@ function CadastroContent(props: any) {
                                             </TableRow>
                                         </TableHead>
                                         <TableBody className="tabela-pedidos">
-                                            {props.data[0].map((row: any, index: any) => (
+                                            {filterToday.map((row: any, index: any) => (
 
                                                 <TableRow key={row.id_pedido}>
                                                     <TableCell>{formatStringData(row.date)}</TableCell>
