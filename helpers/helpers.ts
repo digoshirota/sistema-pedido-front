@@ -26,5 +26,11 @@ export const formatStringData: any = (num: any) => {
     return new Date(num).toLocaleDateString('pt-BR') + ' '+ new Date(num).toLocaleTimeString();
 }
 
+export const orderAlfabetical: any = (object: any, especifico: any) => {
+    return object.sort((a:any, b:any) => a[especifico].localeCompare(b[especifico]))
+} 
+
+
+
 
 

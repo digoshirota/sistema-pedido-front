@@ -22,6 +22,7 @@ import { postCadastro, getPastel,deleteCadastro, getSalgado,getBebida } from '..
 import AlertComponent from './alert';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {orderAlfabetical} from '../helpers/helpers';
 
 function preventDefault(event: React.MouseEvent) {
     event.preventDefault();
@@ -263,7 +264,7 @@ export default function MakeCadastro(props: any) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {listPedido.map((row: any, index: any) => (
+                        {orderAlfabetical(listPedido,'nome').map((row: any, index: any) => (
 
 
                             <TableRow key={row.nome + index}>
