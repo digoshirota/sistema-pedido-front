@@ -45,6 +45,7 @@ const columns = [
 export default function MakeCadastro(props: any) {
     const [textNome, setNome] = useState('');
     const [textValor, setValor] = useState(0);
+    const [textCategory, setCategory] = useState('');
     const [id, setID] = useState(0);
     const [mensagem, setMensagem] = useState('');
     const [gatilho, setGatilho] = useState(false);
@@ -156,6 +157,7 @@ export default function MakeCadastro(props: any) {
         e.preventDefault();
         if(e.target.dataset.row){
             var dados = JSON.parse(e.target.dataset.row);
+            console.log(dados)
         }
         switch (tipo) {
             case 'salvar':
@@ -165,14 +167,15 @@ export default function MakeCadastro(props: any) {
                 setEditar(true);
                 setNome(dados.nome);
                 setValor(dados.valor);
-                setID(dados.id_pastel);
-
+                setID(dados.id_pastel ? dados.id_pastel : (dados.id_salgado ? dados.id_salgado : dados.id_bebida) );
+                setCategory( dados.id_pastel ? 'pastel' : (dados.id_salgado ? 'salgado' : 'bebida')  )
                 break;
             case 'delete':
                 setEditar(true);
                 setNome(dados.nome);
                 setValor(dados.valor);
-                setID(dados.id_pastel);
+                setID(dados.id_pastel ? dados.id_pastel : (dados.id_salgado ? dados.id_salgado : dados.id_bebida) );
+                setCategory( dados.id_pastel ? 'pastel' : (dados.id_salgado ? 'salgado' : 'bebida')  )
                 setDeletar(true)
 
                 break;
@@ -229,7 +232,7 @@ export default function MakeCadastro(props: any) {
                 {editar ?<Grid container sx={{ mb: 3 }} spacing={3}>
                 
                     <Grid item xs={3}>
-                        <TextField id="nome" label="Tipo" value={'pastel'} inputRef={categoriaRef2} disabled required />
+                        <TextField id="nome" label="Tipo" value={textCategory} inputRef={categoriaRef2} disabled required />
                     </Grid>
                     <Grid item xs={3}>
                         <TextField id="id" label="ID" onChange={handleTextId} value={id} required disabled/>
@@ -266,15 +269,15 @@ export default function MakeCadastro(props: any) {
                     <TableBody>
                         {orderAlfabetical(listPedido,'nome').map((row: any, index: any) => (
 
-
+                            
                             <TableRow key={row.nome + index}>
-                                <TableCell>{row.id_pastel}</TableCell>
+                                <TableCell>{row.id_pastel ? row.id_pastel : (row.id_salgado ? row.id_salgado : row.id_bebida)}</TableCell>
                                 <TableCell>{row.nome}</TableCell>
                                 <TableCell>{formatNumberToReal(row.valor)}</TableCell>
                                 <TableCell align="right">
-                                    <Button data-row={JSON.stringify({ id_pastel: row.id_pastel, nome: row.nome, valor: row.valor })} sx={{ marginRight: 3 }} variant="contained" endIcon={<EditIcon />} onClick={handleSubmit('edit')}>
+                                    <Button data-row={row.id_pastel ? JSON.stringify({  id_pastel: row.id_pastel, nome: row.nome, valor: row.valor }) : ( row.id_salgado ? JSON.stringify({  id_salgado: row.id_salgado, nome: row.nome, valor: row.valor }): JSON.stringify({  id_bebida: row.id_bebida, nome: row.nome, valor: row.valor }) )  } sx={{ marginRight: 3 }} variant="contained" endIcon={<EditIcon />} onClick={handleSubmit('edit')}>
                                         Editar
-                                    </Button><Button data-row={JSON.stringify({ id_pastel: row.id_pastel, nome: row.nome, valor: row.valor })} color="error" variant="contained" endIcon={<DeleteIcon />} onClick={handleSubmit('delete')}>
+                                    </Button><Button data-row={row.id_pastel ? JSON.stringify({  id_pastel: row.id_pastel, nome: row.nome, valor: row.valor }) : ( row.id_salgado ? JSON.stringify({  id_salgado: row.id_salgado, nome: row.nome, valor: row.valor }): JSON.stringify({  id_bebida: row.id_bebida, nome: row.nome, valor: row.valor }) )  } sx={{ marginRight: 3 }} color="error" variant="contained" endIcon={<DeleteIcon />} onClick={handleSubmit('delete')}>
                                         Deletar
                                     </Button></TableCell>
 
