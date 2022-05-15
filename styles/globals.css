@@ -54,7 +54,7 @@ a {
 }}
 
 .MuiTableCell-root{
-  font-size: 1.275rem;
+  font-size: 25px !important;
 }
 .MuiInputLabel-root{
   color: #000;
@@ -71,7 +71,4 @@ a {
 }
 .css-1slnj5u-MuiPaper-root{
   padding-top: 0;
-}
-.css-6qfsqn-MuiTableCell-root{
-  font-size: 25px;
 }
