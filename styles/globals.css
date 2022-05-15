@@ -61,14 +61,12 @@ a {
 }
 .MuiInputBase-input.Mui-disabled{
   color: #000;
-  -webkit-text-fill-color: inherit;
+  -webkit-text-fill-color: inherit !important;
   font-size: 25px;
 }
 .MuiInputAdornment-root p{
   color: #000;
-  -webkit-text-fill-color: inherit;
+  -webkit-text-fill-color: inherit !important;
   font-size: 25px;
 }
-.css-1slnj5u-MuiPaper-root{
-  padding-top: 0;
-}
+
