@@ -19,16 +19,21 @@ import { Grid } from '@mui/material';
 
 
 
+
+
+
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
 }
 
 
 export default function Orders(props: any) {
+
   const router = useRouter();
   const [pedidoList, setPedidoList] = React.useState([]);
   const [shouldUpdate, setShouldUpdate] = React.useState(0);
   const [tableData,setTableData] = React.useState([]);
+
 
   const lastOrders = {
       sliced: router.pathname === '/pedidos' ? (shouldUpdate > 0 ?pedidoList: props.data) : (shouldUpdate > 0 ?pedidoList.slice(0, 5):props.data.slice(0, 5)),
@@ -85,7 +90,7 @@ useEffect(() => {
   return (
     <React.Fragment>
       
-      <Box
+      {/* <Box
         sx={{
           display: 'flex',
           flexDirection: 'row',
@@ -98,15 +103,16 @@ useEffect(() => {
         <Button sx={{ marginLeft: 'auto'}} variant="contained" endIcon={<RefreshIcon />} onClick={handleRefresh()}>
                           Atualizar
         </Button>
-      </Box>
-      <Grid item xs={12} sx={{overflow:'scroll'}}>  
+      </Box> */}
+
+      <Grid className="tabela-pedidos2" item xs={12} sx={{overflow:'scroll'}}>  
         <Table size="small">
           <TableHead>
             <TableRow>
               <TableCell>Data</TableCell>
               <TableCell>Nome</TableCell>
               <TableCell>Pedido</TableCell>
-              <TableCell align="right">Valor Total</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right"></TableCell>
             </TableRow>
           </TableHead>

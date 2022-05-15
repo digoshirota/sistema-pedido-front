@@ -117,7 +117,7 @@ export default function MakeOrders(props: any) {
                 <CreateOrder data={props.data[0]} sendDataToParent={sendDataToParent} label={'Pastel'} />
                 <CreateOrder data={props.data[1]} sendDataToParent={sendDataToParent} label={'Salgado'} />
                 <CreateOrder data={props.data[2]} sendDataToParent={sendDataToParent} label={'Bebida'} />
-                <Grid item xs={12} sx={{overflow:'scroll'}}>    
+                <Grid className="tabela" item xs={12} sx={{overflow:'scroll'}}>    
                     <Table size="small">
                         <TableHead>
                             <TableRow>

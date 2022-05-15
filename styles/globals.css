@@ -42,3 +42,36 @@ a {
 .hidden{
   display: none;
 }
+@media (min-width: 0px) and (orientation: landscape){
+.MuiToolbar-root {
+    min-height: 30px !important;
+}
+}
+@media (min-width: 600px){
+
+.css-aq1gdx-MuiDrawer-docked .MuiDrawer-paper {
+    width: 0;
+}}
+
+.MuiTableCell-root{
+  font-size: 1.275rem;
+}
+.MuiInputLabel-root{
+  color: #000;
+}
+.MuiInputBase-input.Mui-disabled{
+  color: #000;
+  -webkit-text-fill-color: inherit;
+  font-size: 25px;
+}
+.MuiInputAdornment-root p{
+  color: #000;
+  -webkit-text-fill-color: inherit;
+  font-size: 25px;
+}
+.css-1slnj5u-MuiPaper-root{
+  padding-top: 0;
+}
+.css-6qfsqn-MuiTableCell-root{
+  font-size: 25px;
+}
