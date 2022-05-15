@@ -105,47 +105,46 @@ useEffect(() => {
         </Button>
       </Box> */}
 
-      <Grid className="tabela-pedidos2" item xs={12} sx={{overflow:'scroll'}}>  
+      <Grid className="tabela-pedidos2" item xs={12} sx={{overflow:'scroll', paddingTop:0}}>  
         <Table size="small">
           <TableHead>
             <TableRow>
-              <TableCell>Data</TableCell>
-              <TableCell>Nome</TableCell>
               <TableCell>Pedido</TableCell>
-              <TableCell align="right"></TableCell>
-              <TableCell align="right"></TableCell>
+              <TableCell>Nome</TableCell>
+              <TableCell></TableCell>
+              <TableCell align="right">Data</TableCell>
+              <TableCell align="right">Valor</TableCell>
             </TableRow>
           </TableHead>
           <TableBody className="tabela-pedidos">
             {lastOrders.sliced.filter((x: { atendido: any; }) => (x.atendido)== 0).map((row:any,index:any) => (
         
               <TableRow key={row.id_pedido}>
-                <TableCell>{formatStringData(row.date)}</TableCell>
-                <TableCell>{row.nome_cliente}</TableCell>
                 <TableCell>
                   <TableBody className="table-lista-pedidos">
                     {row.lista_pedido.map((el:any,index:any) => (
-                        
                           <TableRow key={el.index+el.name}>
                             <TableCell>{el.tipo}</TableCell>
                             <TableCell>{el.name}</TableCell>
                             <TableCell>{el.quantity}</TableCell>
                             <TableCell>{el.obs ?el.obs: null }</TableCell>
                             <TableCell> {el.adicional ? "R$ "+ el.adicional: null }</TableCell>
-                            
                           </TableRow>
-
-                      
                       ))}
                   </TableBody>
                 </TableCell>
-                <TableCell align="right">{`R$ ${row.valor}`}</TableCell>
+                <TableCell>{row.nome_cliente}</TableCell>
                 <TableCell align="right">{row.atendido == 1?   <Button variant="contained" color="success">
                     Atendido
                   </Button>:<Button variant="contained" color="error" onClick={handleSubmit(row.id_pedido)}>
                     Não Atendido
                   </Button>}
                 </TableCell>
+                <TableCell>{formatStringData(row.date)}</TableCell>
+               
+                
+                <TableCell align="right">{`R$ ${row.valor}`}</TableCell>
+               
               </TableRow>
             ))}
           </TableBody>
